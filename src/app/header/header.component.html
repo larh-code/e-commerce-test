@@ -1,28 +1,26 @@
-<div class="
-  content-header
-  d-flex
-  align-items-center
-">
-  <div class="content-left d-flex pe-3 ps-md-3">
-    <button class="btn btn-outline-secondary border-0 bg-transparent d-md-none text-white">
-      <fa-icon [icon]="icons.bars"></fa-icon>
-    </button>
-    <h2 class="mb-0 d-none d-md-block">Hola</h2>
-  </div>
-  <div class="content-right flex-grow-1 d-flex justify-content-end pe-4">
-    <div class="container-search col-10 col-md-4 col-sm-6 me-2">
-      <app-search-input
-        [(ngModel)]="searchValue"
-        (keyup)="searchProduct()"
-        (cleanSearch)="cleanSearch()"
-      ></app-search-input>
+<div class="content-header d-flex align-items-center">
+  <div class="container-center">
+    <div class="content-left d-flex pe-3 ps-md-3">
+      <button class="btn btn-outline-secondary border-0 bg-transparent d-md-none text-white">
+        <fa-icon [icon]="icons.bars"></fa-icon>
+      </button>
+      <h2 class="mb-0 d-none d-md-block">Hola</h2>
     </div>
-    <button class="btn btn-outline-secondary border-0 bg-transparent text-white position-relative" title="Ver carro de compras">
-      <fa-icon [icon]="icons.shoppingCart"></fa-icon>
-      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
-        9
-        <span class="visually-hidden">articulos en el carrito</span>
-      </span>
-    </button>
+    <div class="content-right flex-grow-1 d-flex justify-content-end pe-4">
+      <div class="container-search col-10 col-md-4 col-sm-6 me-2">
+        <app-search-input
+          [(ngModel)]="searchValue"
+          (keyup)="searchProduct()"
+          (cleanSearch)="cleanSearch()"
+        ></app-search-input>
+      </div>
+      <button class="btn btn-outline-secondary border-0 bg-transparent text-white position-relative" title="Ver carro de compras">
+        <fa-icon [icon]="icons.shoppingCart"></fa-icon>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark">
+          9
+          <span class="visually-hidden">articulos en el carrito</span>
+        </span>
+      </button>
+    </div>
   </div>
 </div>

@@ -13,3 +13,10 @@ body {
   background-color: var(--color-bg) !important;
   color: var(--text-normal) !important;
 }
+
+.container-center {
+  display: flex;
+  max-width: 1480px;
+  width: 100%;
+  margin: 0 auto;
+}
