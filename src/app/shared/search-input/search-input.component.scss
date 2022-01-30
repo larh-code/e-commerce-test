@@ -1,0 +1,19 @@
+:host {
+  .form-control {
+    padding-right: 60px;
+  }
+  .btn {
+    z-index: 3;
+  }
+  .btn-clean {
+    right: 40px;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  .btn-search {
+    &:hover {
+      background-color: var(--header-bg-hover);
+      color: var(--white);
+    }
+  }
+}

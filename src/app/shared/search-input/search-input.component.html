@@ -1,0 +1,25 @@
+<div class="input-group search position-relative">
+  <input
+    type="text"
+    class="form-control"
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+    (keyup)="typingSearchEmit()"
+  >
+  <button
+    *ngIf="value.length"
+    class="btn btn-outline-secondary border-0 bg-transparent text-muted position-absolute top-0 btn-clean"
+    type="button"
+    (click)="restSearch()"
+  >
+    <fa-icon [icon]="icons.times"></fa-icon>
+  </button>
+  <button
+    class="btn btn-outline-secondary border-0 rounded-circle position-absolute top-0 end-0 btn-search"
+    type="button"
+    title="Buscar"
+    [disabled]="!value.length"
+  >
+    <fa-icon [icon]="icons.search"></fa-icon>
+  </button>
+</div>
