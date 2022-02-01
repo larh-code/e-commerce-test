@@ -28,3 +28,7 @@ body {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+.badge-category {
+  background-color: var(--badge-category-color) !important;
+}

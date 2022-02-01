@@ -1,0 +1,27 @@
+<div class="container-product-details container-center d-flex flex-column">
+  <div class="container-header my-4 d-flex align-items-center">
+    <button class="btn btn-outline-secondary rounded-circle me-2" (click)="goBack()">
+      <fa-icon [icon]="icons.back"></fa-icon>
+    </button>
+    <span class="page-title">Detalles del producto</span>
+  </div>
+  <div class="card card-details col-12 col-md-8 align-self-center">
+    <div class="row g-0">
+      <div class="col-md-4 container-img d-flex align-items-center">
+        <img src="https://picsum.photos/600/400" class="img-fluid rounded-start" alt="">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <span class="badge badge-category mb-2">Depotivo</span>
+          <p class="card-text text-price">$ 220</p>
+          <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio consequatur quis magni at corporis autem id enim. Quasi reprehenderit corrupti saepe eum accusamus quae recusandae fugit quam. Nobis, perspiciatis minus.</p>
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-success me-2"><fa-icon [icon]="icons.favAdd"></fa-icon> Favoritos</button>
+            <button class="btn btn-warning"><fa-icon [icon]="icons.cartPlus"></fa-icon> Añadir al carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

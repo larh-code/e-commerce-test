@@ -1,0 +1,18 @@
+:host {
+  .page-title {
+    font-size: var(--text-sm-big);
+  }
+  .container-img {
+    background-color: var(--img-bg);
+  }
+  .card-title {
+    font-size: var(--text-big);
+  }
+  .card-text {
+    font-size: var(--text-small);
+  }
+  .text-price {
+    font-size: var(--text-normal);
+    font-weight: bold;
+  }
+}
