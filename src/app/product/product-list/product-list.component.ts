@@ -20,6 +20,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   products: IProduct[] = [];
   searchWord: string = '';
+  categorySelected = '';
   private sub$ = new Subscription();
 
   orderByType = {
@@ -59,6 +60,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     );
     this.sub$.add(
       this.productService.search$.subscribe(data => this.searchWord = data)
+    );
+    this.sub$.add(
+      this.productService.category$.subscribe(data => this.categorySelected = data)
     );
   }
 

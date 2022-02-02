@@ -18,9 +18,11 @@ export class ProductService {
 
   private productsSource = new BehaviorSubject<IProduct[]>([]);
   private searchSource = new BehaviorSubject<string>('');
+  private categorySource = new BehaviorSubject<string>('');
 
   products$ = this.productsSource.asObservable();
   search$ = this.searchSource.asObservable();
+  category$ = this.categorySource.asObservable();
 
   productOriginal: IProduct[] = [];
 
@@ -40,13 +42,13 @@ export class ProductService {
   // obtener todos los productos de una categoria
   getProductosByCategory(category: ICategory | null) {
     if (category) {
-      this.searchSource.next(category.name);
+      this.categorySource.next(category.name);
       this.getProductByCategoryUseCaseService.exec(category.id).subscribe(data => {
         this.productOriginal = data;
         this.productsSource.next(data);
       })
     } else {
-      this.searchSource.next('');
+      this.categorySource.next('');
       this.getAllProduct();
     }
   }

@@ -3,10 +3,10 @@
     class="container-header my-4 ms-md-3 d-flex justify-content-between flex-column-reverse flex-sm-row"
   >
     <div class="container-left">
-      <span *ngIf="searchWord.length" class="page-title fw-bolder"
-        >Resultado para "{{ searchWord }}" ({{ products.length }})</span
+      <span *ngIf="searchWord.length || categorySelected.length" class="page-title fw-bolder"
+        >Resultado para "{{ searchWord || categorySelected }}" ({{ products.length }})</span
       >
-      <span *ngIf="!searchWord.length" class="page-title fw-bolder"
+      <span *ngIf="!searchWord.length && !categorySelected.length" class="page-title fw-bolder"
         >Todos los productos</span
       >
     </div>
