@@ -4,4 +4,9 @@
     overflow: hidden;
     overflow-y: auto;
   }
+  @media (max-width: 576px) {
+    .container-fluid {
+      height: calc(100vh - 104px);
+    }    
+  }
 }
