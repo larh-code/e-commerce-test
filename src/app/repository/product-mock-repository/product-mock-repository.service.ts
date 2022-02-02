@@ -1,7 +1,15 @@
-import { Injectable } from '@angular/core';
-import { filter, from, map, Observable, of } from 'rxjs';
-import { ProductsMock } from './product.data';
-import { IProductMockEntity } from './product.entity';
+import { Injectable } from '@angular/core'
+
+import {
+  from,
+  map,
+  Observable,
+  of
+} from 'rxjs'
+import { filter } from 'rxjs/operators'
+
+import { ProductsMock } from './product.data'
+import { IProductMockEntity } from './product.entity'
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +28,7 @@ export class ProductMockRepositoryService {
   // obtener un producto por id
   getProductById(id: number): Observable<IProductMockEntity> {
     return from(this.productsData)
-      .pipe(filter((product) => product.id === id));
+      .pipe(filter((product) => String(product.id) === String(id)));
   }
 
   // obtener todos los productos por categoria

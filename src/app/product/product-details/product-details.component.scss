@@ -15,4 +15,9 @@
     font-size: var(--text-normal);
     font-weight: bold;
   }
+  @media (max-width: 767px) {
+    .img-fluid {
+      max-height: 270px;
+    }
+  }
 }

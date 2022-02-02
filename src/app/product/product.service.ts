@@ -10,6 +10,9 @@ import {
 import {
   GetProductByCategoryUseCaseService
 } from './use-cases/get-product-by-category-use-case/get-product-by-category-use-case.service'
+import {
+  GetProductByIdUseCaseService
+} from './use-cases/get-product-by-id-use-case/get-product-by-id-use-case.service'
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +32,7 @@ export class ProductService {
   constructor(
     private getAllProductsUseCaseService: GetAllProductsUseCaseService,
     private getProductByCategoryUseCaseService: GetProductByCategoryUseCaseService,
+    private getProductByIdUseCaseService: GetProductByIdUseCaseService,
   ) { }
 
   // obtener todos los productos
@@ -37,6 +41,11 @@ export class ProductService {
       this.productOriginal = data;
       this.productsSource.next(data);
     })
+  }
+
+  // obtener un producto por id
+  getProduct(id: number) {
+    return this.getProductByIdUseCaseService.exec(id);
   }
 
   // obtener todos los productos de una categoria
