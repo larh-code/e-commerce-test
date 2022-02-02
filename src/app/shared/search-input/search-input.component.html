@@ -15,10 +15,11 @@
     <fa-icon [icon]="icons.times"></fa-icon>
   </button>
   <button
-    class="btn btn-outline-secondary border-0 rounded-circle position-absolute top-0 end-0 btn-search"
+    *ngIf="!value.length"
+    class="btn btn-outline-secondary border-0 bg-transparent rounded-circle position-absolute top-0 end-0 btn-search"
     type="button"
     title="Buscar"
-    [disabled]="!value.length"
+    disabled
   >
     <fa-icon [icon]="icons.search"></fa-icon>
   </button>
