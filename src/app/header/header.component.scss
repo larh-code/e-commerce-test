@@ -1,6 +1,19 @@
 :host {
   .content-header {
-    height: 70px;
+    min-height: 70px;
     background: var(--header-bg);
+  }
+  .container-search {
+    max-width: 500px;
+    min-width: 150px;
+    width: 100%;
+  }
+  .content-left {
+    min-width: 245px;
+  }
+  @media (max-width: 576px) {
+    .content-left, .content-right {
+      width: 100%;
+    }
   }
 }

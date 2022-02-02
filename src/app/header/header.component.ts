@@ -1,5 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { faBars, faSearch, faShoppingBasket, faShoppingCart, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  Component,
+  OnInit
+} from '@angular/core'
+
+import {
+  faBars,
+  faShoppingCart,
+  faTh
+} from '@fortawesome/free-solid-svg-icons'
+
+import { ProductService } from '../product/product.service'
+import { HeaderService } from './header.service'
+import { ICategory } from './models/category.model'
 
 @Component({
   selector: 'app-header',
@@ -11,25 +23,41 @@ export class HeaderComponent implements OnInit {
   icons = {
     bars: faBars,
     shoppingCart: faShoppingCart,
+    category: faTh,
   }
   timeOutSearch: any = null;
   searchValue: string = '';
+  categories: ICategory[] = [];
 
-  constructor() { }
+  constructor(
+    private productService: ProductService,
+    private headerService: HeaderService,
+  ) { }
 
   ngOnInit(): void {
+    this.getAllCategory();
+  }
+
+  getAllCategory() {
+    this.headerService.getAllCategory().subscribe(data => {
+      this.categories = data;
+    })
+  }
+
+  getProductByCategory(category: ICategory | null) {
+    this.productService.getProductosByCategory(category);
   }
 
   searchProduct() {
     clearTimeout(this.timeOutSearch);
     this.timeOutSearch = setTimeout(() => {
-      console.log('result', this.searchValue)
-    }, 300);
+      this.productService.getProductsBySearch(this.searchValue);
+    }, 500);
   }
 
   cleanSearch() {
     this.searchValue = '';
-    console.log('result clean', this.searchValue)
+    this.productService.getProductsBySearch(this.searchValue);
   }
 
 }
