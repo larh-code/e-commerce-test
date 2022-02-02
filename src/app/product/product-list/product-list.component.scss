@@ -2,4 +2,11 @@
   .page-title {
     font-size: var(--text-sm-big);
   }
+  .list-empty {
+    height: 300px;
+    width: auto;
+    fa-icon {
+      font-size: 40px;
+    }
+  }
 }

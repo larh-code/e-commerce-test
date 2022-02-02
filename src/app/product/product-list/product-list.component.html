@@ -1,35 +1,64 @@
 <div class="container-list-product container-center d-flex flex-column">
-  <div class="container-header my-4 ms-3 d-flex justify-content-between">
+  <div
+    class="container-header my-4 ms-md-3 d-flex justify-content-between flex-column-reverse flex-sm-row"
+  >
     <div class="container-left">
-      <span *ngIf="searchWord.length" class="page-title fw-bolder">Resultado para "{{ searchWord }}"</span>
-      <span *ngIf="!searchWord.length" class="page-title fw-bolder">Todos los productos</span>
+      <span *ngIf="searchWord.length" class="page-title fw-bolder"
+        >Resultado para "{{ searchWord }}" ({{ products.length }})</span
+      >
+      <span *ngIf="!searchWord.length" class="page-title fw-bolder"
+        >Todos los productos</span
+      >
     </div>
-    <div class="container-right">
+    <div class="container-right d-flex justify-content-end mb-2 mb-sm-0">
       <div class="btn-group">
-        <button class="btn btn-light bg-transparent border-0 btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button
+          class="btn btn-light bg-transparent border-0 btn-sm dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
           Ordenar por
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" role="button">Menor precio</a></li>
-          <li><a class="dropdown-item" role="button">Mayor precio</a></li>
+          <li>
+            <a
+              class="dropdown-item"
+              role="button"
+              (click)="orderBy(orderByType.minor)"
+              >Menor precio</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              role="button"
+              (click)="orderBy(orderByType.major)"
+              >Mayor precio</a
+            >
+          </li>
+          <li>
+            <a
+              class="dropdown-item"
+              role="button"
+              (click)="orderBy(orderByType.category)"
+              >Categoria</a
+            >
+          </li>
         </ul>
       </div>
     </div>
   </div>
   <div class="items row">
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
-    <app-card-product class="col-12 col-sm-6 col-md-4 col-lg-3"></app-card-product>
+    <ng-container *ngFor="let product of products">
+      <app-card-product
+        class="col-12 col-sm-6 col-md-4 col-lg-3"
+        [product]="product"
+      ></app-card-product>
+    </ng-container>
+    <div *ngIf="!products.length" class="list-empty d-flex justify-content-center align-items-center flex-column p-4 mx-auto border rounded">
+      <fa-icon class="mb-3" [icon]="icons.listEmpty"></fa-icon>
+      <span class="text-bolder">No se encontraron resultados</span>
+    </div>
   </div>
 </div>
