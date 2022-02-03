@@ -1,7 +1,11 @@
 import {
   Component,
+  OnDestroy,
   OnInit
 } from '@angular/core'
+import { Router } from '@angular/router'
+
+import { Subscription } from 'rxjs'
 
 import {
   faBars,
@@ -10,6 +14,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import { ProductService } from '../product/product.service'
+import { ShoppingCartService } from '../shopping-cart/shopping-cart.service'
 import { HeaderService } from './header.service'
 import { ICategory } from './models/category.model'
 
@@ -18,7 +23,7 @@ import { ICategory } from './models/category.model'
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   icons = {
     bars: faBars,
@@ -28,36 +33,65 @@ export class HeaderComponent implements OnInit {
   timeOutSearch: any = null;
   searchValue: string = '';
   categories: ICategory[] = [];
+  cartCount = 0;
+  sub$ = new Subscription();
 
   constructor(
     private productService: ProductService,
     private headerService: HeaderService,
+    private router: Router,
+    private shoppingCartService: ShoppingCartService
   ) { }
 
   ngOnInit(): void {
     this.getAllCategory();
+    this.getCartCount();
   }
 
+  ngOnDestroy(): void {
+    this.sub$.unsubscribe();
+  }
+
+  // cargar la cantidad de productos en el carrito
+  getCartCount() {
+    this.sub$.add(
+      this.shoppingCartService.cartCount$.subscribe(count => this.cartCount = count)
+    )
+  }
+
+  // obtener todas las categorias
   getAllCategory() {
     this.headerService.getAllCategory().subscribe(data => {
       this.categories = data;
     })
   }
 
+  // filtrar lista por categoria
   getProductByCategory(category: ICategory | null) {
-    this.productService.getProductosByCategory(category);
+    if (category) {
+      this.router.navigate([''], { queryParams: { categoryid: category?.id || '', categoryname: category?.name || '', type: 'category' } });
+    } else {
+      this.router.navigate([''], { queryParams: { type: 'category' } });
+    }
   }
 
+  // filtrar lista por buscador
   searchProduct() {
     clearTimeout(this.timeOutSearch);
     this.timeOutSearch = setTimeout(() => {
-      this.productService.getProductsBySearch(this.searchValue);
+      this.router.navigate([''], { queryParams: { search: this.searchValue, type: 'search' } });
     }, 500);
   }
 
+  // limpiar buscador
   cleanSearch() {
     this.searchValue = '';
     this.productService.getProductsBySearch(this.searchValue);
+  }
+
+  // ir a la vista del carrito de compras
+  goToCart() {
+    this.router.navigate(['shopping-cart']);
   }
 
 }

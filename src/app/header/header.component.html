@@ -30,12 +30,13 @@
     <button
       class="btn btn-outline-secondary border-0 bg-transparent text-white position-relative"
       title="Ver carro de compras"
+      (click)="goToCart()"
     >
       <fa-icon [icon]="icons.shoppingCart"></fa-icon>
       <span
         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark"
       >
-        9
+        {{ cartCount }}
         <span class="visually-hidden">articulos en el carrito</span>
       </span>
     </button>

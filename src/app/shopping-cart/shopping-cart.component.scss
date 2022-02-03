@@ -1,0 +1,18 @@
+:host {
+  .list-products {
+    overflow: hidden;
+    overflow-y: auto;
+    height: calc(100vh - 345px);
+  }
+  .list-empty {
+    height: 100%;
+    fa-icon {
+      font-size: 40px;
+    }
+  }
+  @media (max-width: 576px) {
+    .list-products {
+      height: calc(100vh - 405px);
+    }    
+  }
+}

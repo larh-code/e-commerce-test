@@ -1,0 +1,50 @@
+<div class="container-shopping-cart container-center d-flex flex-column">
+  <div class="container-header my-4 d-flex align-items-center">
+    <button
+      class="btn btn-outline-secondary rounded-circle me-2"
+      (click)="goBack()"
+    >
+      <fa-icon [icon]="icons.back"></fa-icon>
+    </button>
+    <span class="page-title">Carrito de compras</span>
+  </div>
+  <div class="container-products-cart">
+    <div class="card col-12 mb-4">
+      <div class="card-body">
+        <h3 class="mb-3">Productos</h3>
+        <div class="list-products py-2 pe-2">
+          <ng-container *ngFor="let product of cart?.products">
+            <app-card-product-cart
+              [product]="product"
+              (remove)="removeProduct($event)"
+            ></app-card-product-cart>
+          </ng-container>
+          <ng-container *ngIf="!cart?.products?.length">
+            <div
+              class="list-empty d-flex flex-column align-items-center justify-content-center"
+            >
+              <fa-icon [icon]="icons.addCart"></fa-icon>
+              <span class="text-bolder text-center"
+                >No ha agregado productos al carrito</span
+              >
+              <span class="text-bolder text-center">por favor agrege</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="card card-action">
+      <div class="card-body text-end d-flex justify-content-end flex-column flex-sm-row">
+        <span class="me-0 me-sm-3 mb-3 mb-sm-0"
+          ><strong>Total a pagar:</strong> $ {{ cart?.total }}</span
+        >
+        <button
+          class="btn btn-sm btn-warning"
+          [disabled]="!cart?.products?.length"
+        >
+          Procesar pago
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

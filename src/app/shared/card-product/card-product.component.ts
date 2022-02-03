@@ -1,8 +1,22 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faCartPlus, faHeart as heartSolid } from '@fortawesome/free-solid-svg-icons';
-import { IProduct } from 'src/app/product/models/product.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core'
+import { Router } from '@angular/router'
+
+import { IProduct } from 'src/app/product/models/product.model'
+import {
+  ShoppingCartService
+} from 'src/app/shopping-cart/shopping-cart.service'
+
+import { faHeart } from '@fortawesome/free-regular-svg-icons'
+import {
+  faCartPlus,
+  faHeart as heartSolid
+} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-card-product',
@@ -14,19 +28,22 @@ export class CardProductComponent implements OnInit {
   @Input() product: IProduct;
 
   @Output() favAction: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() addCart: EventEmitter<number> = new EventEmitter<number>();
+  @Output() addCart: EventEmitter<IProduct> = new EventEmitter<IProduct>();
 
   icons = {
     favAdd: faHeart,
     favDel: heartSolid,
     cartPlus: faCartPlus,
   }
+  productAddCart = false;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private shoppingCartService: ShoppingCartService
   ) { }
 
   ngOnInit(): void {
+    this.checkProductCart();
   }
 
   favoriteAdd() {
@@ -40,14 +57,17 @@ export class CardProductComponent implements OnInit {
   }
 
   addCartFn() {
-    console.log('add cart')
-    this.addCart.emit(this.product.id);
-    // this.addCart.emit(1);
+    this.addCart.emit(this.product);
+    this.checkProductCart();
+  }
+
+  // verificar si el producto esta en el carrito
+  checkProductCart() {
+    this.productAddCart = this.shoppingCartService.getProduct(this.product.id);
   }
 
   goToDetails() {
     this.router.navigate(['product', this.product.id]);
-    // this.router.navigate(['product', 1]);
   }
 
 }

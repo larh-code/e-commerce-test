@@ -1,12 +1,16 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { BrowserModule } from '@angular/platform-browser'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SearchInputModule } from './shared/search-input/search-input.module';
-import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr'
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+
+import { AppRoutingModule } from './app-routing.module'
+import { AppComponent } from './app.component'
+import { HeaderComponent } from './header/header.component'
+import { SearchInputModule } from './shared/search-input/search-input.module'
 
 @NgModule({
   declarations: [
@@ -18,7 +22,9 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     FontAwesomeModule,
     SearchInputModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]

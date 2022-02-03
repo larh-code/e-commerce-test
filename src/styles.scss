@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+// regular style toast
+@import '~ngx-toastr/toastr';
 
 @import './styles/variables';
 @import './styles/components/index';
@@ -31,4 +33,17 @@ body {
 
 .badge-category {
   background-color: var(--badge-category-color) !important;
+}
+
+.btn-actions {
+  background-color: rgba(0,0,0,0.3) !important;
+  color: var(--white) !important;
+  width: 30px;
+  height: 30px;
+  &:hover {
+    background-color: rgba(0,0,0,0.7) !important;
+  }
+  &.prod-add {
+    background-color: rgba(0,0,0,0.7) !important;
+  }
 }

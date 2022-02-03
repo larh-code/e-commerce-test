@@ -1,11 +1,32 @@
 <div class="card mb-4 mx-3" (click)="goToDetails()">
   <div class="card-header-img position-relative">
-    <img *ngIf="product?.image" [src]="product.image" class="card-img-top img-fluid" alt="" loading="lazy">
-    <img *ngIf="!product?.image" src="assets/img/imagen.png" class="card-img-top img-fluid" alt="" loading="lazy">
-    <button type="button" class="btn-actions btn-fav-add btn btn-outline-dark rounded-circle position-absolute border-0" (click)="$event.stopPropagation(); favoriteAdd()">
+    <img
+      *ngIf="product?.image"
+      [src]="product.image"
+      class="card-img-top img-fluid"
+      alt=""
+      loading="lazy"
+    />
+    <img
+      *ngIf="!product?.image"
+      src="assets/img/imagen.png"
+      class="card-img-top img-fluid"
+      alt=""
+      loading="lazy"
+    />
+    <button
+      type="button"
+      class="btn-actions btn-sm btn-fav-add btn btn-outline-dark position-absolute border-0"
+      (click)="$event.stopPropagation(); favoriteAdd()"
+    >
       <fa-icon [icon]="icons.favAdd"></fa-icon>
     </button>
-    <button type="button" class="btn-actions btn-cart-plus btn btn-outline-dark rounded-circle position-absolute border-0" (click)="$event.stopPropagation(); addCartFn()">
+    <button
+      type="button"
+      class="btn-actions btn-sm btn-cart-plus btn btn-outline-dark position-absolute border-0"
+      [ngClass]="{'prod-add': productAddCart}"
+      (click)="$event.stopPropagation(); addCartFn()"
+    >
       <fa-icon [icon]="icons.cartPlus"></fa-icon>
     </button>
   </div>

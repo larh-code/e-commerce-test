@@ -27,8 +27,16 @@
             <button class="btn btn-success me-sm-2 mb-2 mb-sm-0">
               <fa-icon [icon]="icons.favAdd"></fa-icon> Favoritos
             </button>
-            <button class="btn btn-warning">
-              <fa-icon [icon]="icons.cartPlus"></fa-icon> Añadir al carrito
+            <button
+              class="btn"
+              [ngClass]="{
+                'btn-outline-secondary': productAddCart,
+                'btn-warning': !productAddCart
+              }"
+              (click)="setProductToCart()"
+            >
+              <fa-icon [icon]="icons.cartPlus"></fa-icon>
+              {{ productAddCart ? 'Remover del carrito' : 'Añadir al carrito' }}
             </button>
           </div>
         </div>

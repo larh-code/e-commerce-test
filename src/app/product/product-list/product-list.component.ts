@@ -3,8 +3,13 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
 
 import { Subscription } from 'rxjs'
+import { ICategory } from 'src/app/header/models/category.model'
+import {
+  ShoppingCartService
+} from 'src/app/shopping-cart/shopping-cart.service'
 
 import { faStoreSlash } from '@fortawesome/free-solid-svg-icons'
 
@@ -35,15 +40,43 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   constructor(
     private productService: ProductService,
+    private route: ActivatedRoute,
+    private shoppingCartService: ShoppingCartService
   ) { }
 
   ngOnInit(): void {
     this.loadData();
     this.getProducts();
+    this.subQueryParams();
   }
 
   ngOnDestroy(): void {
     this.sub$.unsubscribe();
+  }
+
+  // subcribirse a los cambios de query
+  subQueryParams() {
+    this.sub$.add(
+      this.route.queryParams.subscribe(params => {
+        if (params['categoryid'] && params['categoryname'] && params['type'] === 'category') {
+          this.getProductByCategory({ id: parseInt(params['categoryid']), name: params['categoryname'] });
+        } else if (!params['categoryid'] && !params['categoryname'] && params['type'] === 'category') {
+          this.getProductByCategory(null);
+        } else if (params['search'] || !params['search'] && params['type'] === 'search') {
+          this.searchProduct(params['search']);
+        }
+      })
+    )
+  }
+
+  // obtener los productos de una categoria
+  getProductByCategory(category: ICategory | null) {
+    this.productService.getProductosByCategory(category);
+  }
+
+  // productos por buscador
+  searchProduct(search: string) {
+    this.productService.getProductsBySearch(search);
   }
 
   // cargar los productos
@@ -81,6 +114,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
       default: 
         this.productService.orderByCategpory();
     }
+  }
+
+  // agregar/quitar un producto al carrito
+  setProductToCart(product: IProduct) {
+    this.shoppingCartService.setProductCart(product);
   }
 
 }
