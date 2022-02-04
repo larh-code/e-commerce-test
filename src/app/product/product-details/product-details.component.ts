@@ -38,6 +38,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   product: IProduct;
   private sub$ = new Subscription();
   productAddCart = false;
+  productAddFav = false;
 
   constructor(
     private location: Location,
@@ -55,6 +56,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getProduct();
     this.checkProductCart();
+    this.checkProductFavorite();
   }
 
   ngOnDestroy(): void {
@@ -76,7 +78,18 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   // verificar si el producto esta en el carrito
   checkProductCart() {
-    this.productAddCart = this.shoppingCartService.getProduct(this.product.id);
+    this.productAddCart = this.shoppingCartService.checkProduct(this.product.id);
+  }
+
+  // verificar si el producto esta en favoritos
+  checkProductFavorite() {
+    this.productAddFav = this.productService.checkProductFavorite(this.product.id);
+  }
+
+  // agregar/quitar un producto de favorito
+  setProductToFavorite() {
+    this.productService.setProductoFavorite(this.product.id);
+    this.checkProductFavorite();
   }
 
   // regresar a la pagina anterior

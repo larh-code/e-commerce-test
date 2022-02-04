@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 
+import { ToastrService } from 'ngx-toastr'
 import { BehaviorSubject } from 'rxjs'
 
 import { ICategory } from '../header/models/category.model'
@@ -28,11 +29,13 @@ export class ProductService {
   category$ = this.categorySource.asObservable();
 
   productOriginal: IProduct[] = [];
+  productsFavorite = new Map();
 
   constructor(
     private getAllProductsUseCaseService: GetAllProductsUseCaseService,
     private getProductByCategoryUseCaseService: GetProductByCategoryUseCaseService,
     private getProductByIdUseCaseService: GetProductByIdUseCaseService,
+    private toastr: ToastrService,
   ) { }
 
   // obtener todos los productos
@@ -81,6 +84,19 @@ export class ProductService {
     this.productsSource.next(this.productOriginal);
   }
 
+  // ordenar todos los productos por favoritos
+  orderByFavorite() {
+    const newArray: IProduct[] = Object.assign([], this.productOriginal);
+    const products = newArray.sort((a, b) => {
+      if (this.checkProductFavorite(a.id)) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+    this.productsSource.next(products);
+  }
+
   // obtener todos los productos que coincidan con la busqueda
   getProductsBySearch(search: string) {
     this.searchSource.next(search);
@@ -94,5 +110,24 @@ export class ProductService {
     } else {
       this.productsSource.next(this.productOriginal);
     }
+  }
+
+  // agregar/remover un producto favorito
+  setProductoFavorite(productId: number) {
+    if (this.productsFavorite.get(productId)) {
+      this.productsFavorite.delete(productId);
+      this.toastr.success('El producto fue removido de favoritos');
+    } else {
+      this.productsFavorite.set(productId, productId);
+      this.toastr.success('El producto fue agregado a favoritos');
+    }
+  }
+
+  // verificar si el producto esta en favoritos
+  checkProductFavorite(productId: number) {
+    if (this.productsFavorite.get(productId)) {
+      return true;
+    }
+    return false;
   }
 }

@@ -31,7 +31,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   orderByType = {
     major: 'MAJOR',
     minor: 'MINOR',
-    category: 'Category',
+    category: 'CATEGORY',
+    favorite: 'FAVORITE',
   }
   orderBySel = '';
   icons = {
@@ -111,6 +112,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       case this.orderByType.category:
         this.productService.orderByCategpory();
         break;
+      case this.orderByType.favorite:
+        this.productService.orderByFavorite();
+        break;
       default: 
         this.productService.orderByCategpory();
     }
@@ -119,6 +123,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   // agregar/quitar un producto al carrito
   setProductToCart(product: IProduct) {
     this.shoppingCartService.setProductCart(product);
+  }
+
+  // agregar/quitar un producto de favorito
+  setProductToFavorite(productId: number) {
+    this.productService.setProductoFavorite(productId);
   }
 
 }

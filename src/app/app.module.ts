@@ -10,7 +10,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { HeaderComponent } from './header/header.component'
-import { SearchInputModule } from './shared/search-input/search-input.module'
+import {
+  SearchInputModule
+} from './shared/components/search-input/search-input.module'
 
 @NgModule({
   declarations: [

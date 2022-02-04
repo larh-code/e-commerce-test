@@ -24,8 +24,17 @@
           <p class="card-text text-price">$ {{ product.price.toFixed(2) }}</p>
           <p class="card-text mb-5">{{ product.description }}</p>
           <div class="d-flex justify-content-end flex-column flex-sm-row">
-            <button class="btn btn-success me-sm-2 mb-2 mb-sm-0">
-              <fa-icon [icon]="icons.favAdd"></fa-icon> Favoritos
+            <button
+              class="btn btn-outline-success me-sm-2 mb-2 mb-sm-0"
+              [title]="
+                productAddFav ? 'Quitar de favoritos' : 'Agregar a favoritos'
+              "
+              (click)="setProductToFavorite()"
+            >
+              <fa-icon
+                [icon]="productAddFav ? icons.favDel : icons.favAdd"
+              ></fa-icon>
+              Favoritos
             </button>
             <button
               class="btn"
@@ -33,6 +42,9 @@
                 'btn-outline-secondary': productAddCart,
                 'btn-warning': !productAddCart
               }"
+              [title]="
+                productAddCart ? 'Quitar del carrito' : 'Agregar al carrito'
+              "
               (click)="setProductToCart()"
             >
               <fa-icon [icon]="icons.cartPlus"></fa-icon>

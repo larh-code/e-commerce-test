@@ -1,12 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common'
+import { NgModule } from '@angular/core'
 
-import { ProductRoutingModule } from './product-routing.module';
-import { ProductListComponent } from './product-list/product-list.component';
-import { CardProductModule } from '../shared/card-product/card-product.module';
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
+import {
+  CardProductModule
+} from '../shared/components/card-product/card-product.module'
+import {
+  ProductDetailsComponent
+} from './product-details/product-details.component'
+import { ProductListComponent } from './product-list/product-list.component'
+import { ProductRoutingModule } from './product-routing.module'
 
 @NgModule({
   declarations: [

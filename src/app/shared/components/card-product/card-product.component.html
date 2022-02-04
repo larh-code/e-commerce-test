@@ -17,14 +17,17 @@
     <button
       type="button"
       class="btn-actions btn-sm btn-fav-add btn btn-outline-dark position-absolute border-0"
+      [ngClass]="{ 'prod-add': productAddFav }"
+      [title]="productAddFav ? 'Quitar de favoritos' : 'Agregar a favoritos'"
       (click)="$event.stopPropagation(); favoriteAdd()"
     >
-      <fa-icon [icon]="icons.favAdd"></fa-icon>
+      <fa-icon [icon]="productAddFav ? icons.favDel : icons.favAdd"></fa-icon>
     </button>
     <button
       type="button"
       class="btn-actions btn-sm btn-cart-plus btn btn-outline-dark position-absolute border-0"
-      [ngClass]="{'prod-add': productAddCart}"
+      [ngClass]="{ 'prod-add': productAddCart }"
+      [title]="productAddCart ? 'Quitar del carrito' : 'Agregar al carrito'"
       (click)="$event.stopPropagation(); addCartFn()"
     >
       <fa-icon [icon]="icons.cartPlus"></fa-icon>

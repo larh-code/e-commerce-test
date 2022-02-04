@@ -54,7 +54,8 @@ export class ShoppingCartService {
     this.cartCountSource.next(productSelected.length);
   }
 
-  getProduct(productId: number) {
+  // verificar si un producto esta en el carrito
+  checkProduct(productId: number) {
     if (this.cartProducts.get(productId)) {
       return true;
     }

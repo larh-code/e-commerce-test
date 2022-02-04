@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router'
 
 import { IProduct } from 'src/app/product/models/product.model'
+import { ProductService } from 'src/app/product/product.service'
 import {
   ShoppingCartService
 } from 'src/app/shopping-cart/shopping-cart.service'
@@ -27,7 +28,7 @@ export class CardProductComponent implements OnInit {
 
   @Input() product: IProduct;
 
-  @Output() favAction: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() addFav: EventEmitter<number> = new EventEmitter<number>();
   @Output() addCart: EventEmitter<IProduct> = new EventEmitter<IProduct>();
 
   icons = {
@@ -36,24 +37,22 @@ export class CardProductComponent implements OnInit {
     cartPlus: faCartPlus,
   }
   productAddCart = false;
+  productAddFav = false;
 
   constructor(
     private router: Router,
-    private shoppingCartService: ShoppingCartService
+    private shoppingCartService: ShoppingCartService,
+    private productService: ProductService,
   ) { }
 
   ngOnInit(): void {
     this.checkProductCart();
+    this.checkProductFavorite();
   }
 
   favoriteAdd() {
-    console.log('fav add')
-    this.favAction.emit(true);
-  }
-
-  favoriteDel() {
-    console.log('fav del')
-    this.favAction.emit(false);
+    this.addFav.emit(this.product.id);
+    this.checkProductFavorite();
   }
 
   addCartFn() {
@@ -63,9 +62,15 @@ export class CardProductComponent implements OnInit {
 
   // verificar si el producto esta en el carrito
   checkProductCart() {
-    this.productAddCart = this.shoppingCartService.getProduct(this.product.id);
+    this.productAddCart = this.shoppingCartService.checkProduct(this.product.id);
   }
 
+  // verificar si el producto esta en favoritos
+  checkProductFavorite() {
+    this.productAddFav = this.productService.checkProductFavorite(this.product.id);
+  }
+
+  // ir a la vista de detalles del producto
   goToDetails() {
     this.router.navigate(['product', this.product.id]);
   }
