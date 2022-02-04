@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs'
 export const VarNameLocalStorage = {
   cart: 'ShoppingCartStorage',
   fav: 'favoriteStorage',
+  styleTheme: 'styleThemeStorage',
 }
 
 @Injectable({

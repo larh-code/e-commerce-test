@@ -62,10 +62,11 @@
     </button>
     <button
       class="ms-3 btn btn-outline-secondary border-0 bg-transparent text-white"
-      title="Cambiar tema"
-      (click)="toggleTheme()"
+      [title]="'Cambiar tema a ' + (themeDark ? 'claro' : 'oscuro')"
+      (click)="toggleTheme(!this.themeDark)"
     >
-      <fa-icon [icon]="icons.sunLight"></fa-icon>
+      <fa-icon *ngIf="themeDark" [icon]="icons.sunLight"></fa-icon>
+      <fa-icon *ngIf="!themeDark" [icon]="icons.sunLightDark"></fa-icon>
     </button>
   </div>
 </div>

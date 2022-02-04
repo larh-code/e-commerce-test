@@ -10,11 +10,16 @@ import { Subscription } from 'rxjs'
 import { faLightbulb } from '@fortawesome/free-regular-svg-icons'
 import {
   faBars,
+  faLightbulb as faLightbulbDark,
   faShoppingCart,
   faTh
 } from '@fortawesome/free-solid-svg-icons'
 
 import { ProductService } from '../product/product.service'
+import {
+  LocalStorageService,
+  VarNameLocalStorage
+} from '../shared/services/localStorage.service'
 import { ShoppingCartService } from '../shopping-cart/shopping-cart.service'
 import { HeaderService } from './header.service'
 import { ICategory } from './models/category.model'
@@ -31,19 +36,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
     shoppingCart: faShoppingCart,
     category: faTh,
     sunLight: faLightbulb,
+    sunLightDark: faLightbulbDark,
   }
   timeOutSearch: any = null;
   searchValue: string = '';
   categories: ICategory[] = [];
   cartCount = 0;
   sub$ = new Subscription();
+  themeDark = false;
 
   constructor(
     private productService: ProductService,
     private headerService: HeaderService,
     private router: Router,
-    private shoppingCartService: ShoppingCartService
-  ) { }
+    private shoppingCartService: ShoppingCartService,
+    private localStorageService: LocalStorageService,
+  ) {
+    this.sub$.add(
+      this.localStorageService.loadDataLocal$.subscribe(() => this.checkStylethemeLocalStorage())
+    )
+  }
 
   ngOnInit(): void {
     this.getAllCategory();
@@ -97,8 +109,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   // cambiar tema
-  toggleTheme() {
-    document.body.classList.toggle('dark-theme');
+  toggleTheme(dark: boolean) {
+    if (dark) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');      
+    }
+    this.themeDark = dark;
+    this.localStorageService.setDataLocalStorage(VarNameLocalStorage.styleTheme, this.themeDark);
+  }
+
+  // verificar configuracion de tema en el localstorage
+  checkStylethemeLocalStorage() {
+    const themeLocal = this.localStorageService.getDataLocalStorage(VarNameLocalStorage.styleTheme);
+    this.themeDark = themeLocal || false;
+    this.toggleTheme(this.themeDark);
   }
 
 }
