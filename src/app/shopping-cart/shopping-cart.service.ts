@@ -4,6 +4,10 @@ import { ToastrService } from 'ngx-toastr'
 import { BehaviorSubject } from 'rxjs'
 
 import { IProduct } from '../product/models/product.model'
+import {
+  LocalStorageService,
+  VarNameLocalStorage
+} from '../shared/services/localStorage.service'
 import { ICart } from './models/cart.model'
 
 @Injectable({
@@ -25,8 +29,11 @@ export class ShoppingCartService {
   cartCount$ = this.cartCountSource.asObservable();
 
   constructor(
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    private localStorageService: LocalStorageService,
+  ) {
+    this.localStorageService.loadDataLocal$.subscribe(() => this.checkCartLocalStorage());
+  }
 
   // agregar o remover producto del carrito
   setProductCart(product: IProduct) {
@@ -41,7 +48,7 @@ export class ShoppingCartService {
   }
 
   // calcular el precio total y setear el observador
-  private setCart() {
+  private setCart(save = true) {
     const productSelected: IProduct[] = [];
     let total = 0;
     this.cartProducts.forEach(product => {
@@ -52,6 +59,9 @@ export class ShoppingCartService {
     this.cart.total = total;
     this.cartSource.next(this.cart);
     this.cartCountSource.next(productSelected.length);
+    if (save) {
+      this.localStorageService.setDataLocalStorage(VarNameLocalStorage.cart, this.cart);
+    }
   }
 
   // verificar si un producto esta en el carrito
@@ -60,5 +70,16 @@ export class ShoppingCartService {
       return true;
     }
     return false;
+  }
+
+  // verificar si hay data en el localstorage
+  checkCartLocalStorage() {
+    const cart = this.localStorageService.getDataLocalStorage(VarNameLocalStorage.cart);
+    if (cart) {
+      for (const product of cart.products) {
+        this.cartProducts.set(product.id, product);        
+      }
+      this.setCart(false);
+    }
   }
 }

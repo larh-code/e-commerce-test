@@ -4,6 +4,10 @@ import { ToastrService } from 'ngx-toastr'
 import { BehaviorSubject } from 'rxjs'
 
 import { ICategory } from '../header/models/category.model'
+import {
+  LocalStorageService,
+  VarNameLocalStorage
+} from '../shared/services/localStorage.service'
 import { IProduct } from './models/product.model'
 import {
   GetAllProductsUseCaseService
@@ -36,7 +40,10 @@ export class ProductService {
     private getProductByCategoryUseCaseService: GetProductByCategoryUseCaseService,
     private getProductByIdUseCaseService: GetProductByIdUseCaseService,
     private toastr: ToastrService,
-  ) { }
+    private localStorageService: LocalStorageService,
+  ) {
+    this.localStorageService.loadDataLocal$.subscribe(() => this.checkFavoriteLocalStorage());
+  }
 
   // obtener todos los productos
   getAllProduct() {
@@ -121,6 +128,7 @@ export class ProductService {
       this.productsFavorite.set(productId, productId);
       this.toastr.success('El producto fue agregado a favoritos');
     }
+    this.setFavoriteLocalStorage();
   }
 
   // verificar si el producto esta en favoritos
@@ -129,5 +137,22 @@ export class ProductService {
       return true;
     }
     return false;
+  }
+
+  // guardar favoritos en el localstorage
+  setFavoriteLocalStorage() {
+    const fav: number[] = [];
+    this.productsFavorite.forEach(id => fav.push(id));
+    this.localStorageService.setDataLocalStorage(VarNameLocalStorage.fav, fav);
+  }
+
+  // verificar si hay data en el localstorage
+  checkFavoriteLocalStorage() {
+    const fav = this.localStorageService.getDataLocalStorage(VarNameLocalStorage.fav);
+    if (fav) {
+      for (const productId of fav) {
+        this.productsFavorite.set(productId, productId);
+      }
+    }
   }
 }
