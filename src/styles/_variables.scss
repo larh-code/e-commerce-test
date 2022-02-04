@@ -6,14 +6,26 @@
   --text-small: 0.875rem;
   --text-smaller: 0.75rem;
 
-  // colors
-  --header-bg: #457b9d;
-  --color-bg: #edf2f4;
-  --card-bg: #fff;
-  --text-color: #29293d;
-  --text-color-light: #52527a;
-  --white: #fff;
-  --header-bg-hover: #f3d8e0;
-  --badge-category-color: #A7C5EB;
-  --img-bg: rgba(0,0,0,0.1);
+  body {
+    // colors
+    --header-bg: #457b9d;
+    --color-bg: #edf2f4;
+    --card-bg: #fff;
+    --text-color: #29293d;
+    --white: #fff;
+    --badge-category-color: #A7C5EB;
+    --badge-category-text-color: #f8f9fa;
+    --img-bg: rgba(0,0,0,0.1);
+  }
+  body.dark-theme {
+    // colors
+    --header-bg: #2f536a;
+    --color-bg: #1d2d44;
+    --card-bg: #3e5c76;
+    --text-color: #f8f9fa;
+    --white: #fff;
+    --badge-category-color: #A7C5EB;
+    --badge-category-text-color: #293241;
+    --img-bg: rgba(0,0,0,0.3);
+  }
 }

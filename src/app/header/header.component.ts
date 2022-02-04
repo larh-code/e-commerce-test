@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 
 import { Subscription } from 'rxjs'
 
+import { faLightbulb } from '@fortawesome/free-regular-svg-icons'
 import {
   faBars,
   faShoppingCart,
@@ -29,6 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     bars: faBars,
     shoppingCart: faShoppingCart,
     category: faTh,
+    sunLight: faLightbulb,
   }
   timeOutSearch: any = null;
   searchValue: string = '';
@@ -92,6 +94,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // ir a la vista del carrito de compras
   goToCart() {
     this.router.navigate(['shopping-cart']);
+  }
+
+  // cambiar tema
+  toggleTheme() {
+    document.body.classList.toggle('dark-theme');
   }
 
 }

@@ -25,7 +25,7 @@
           <p class="card-text mb-5">{{ product.description }}</p>
           <div class="d-flex justify-content-end flex-column flex-sm-row">
             <button
-              class="btn btn-outline-success me-sm-2 mb-2 mb-sm-0"
+              class="btn btn-success me-sm-2 mb-2 mb-sm-0"
               [title]="
                 productAddFav ? 'Quitar de favoritos' : 'Agregar a favoritos'
               "
@@ -39,7 +39,7 @@
             <button
               class="btn"
               [ngClass]="{
-                'btn-outline-secondary': productAddCart,
+                'btn-secondary': productAddCart,
                 'btn-warning': !productAddCart
               }"
               [title]="
