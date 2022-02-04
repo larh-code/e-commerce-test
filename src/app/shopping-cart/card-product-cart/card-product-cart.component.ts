@@ -5,6 +5,7 @@ import {
   OnInit,
   Output
 } from '@angular/core'
+import { Router } from '@angular/router'
 
 import { IProduct } from 'src/app/product/models/product.model'
 
@@ -25,13 +26,20 @@ export class CardProductCartComponent implements OnInit {
     remove: faTimes
   }
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
 
   ngOnInit(): void {
   }
 
   removeProduct() {
     this.remove.emit(this.product);
+  }
+
+  // ir a la vista de detalles del producto
+  goToDetails() {
+    this.router.navigate(['product', this.product.id]);
   }
 
 }

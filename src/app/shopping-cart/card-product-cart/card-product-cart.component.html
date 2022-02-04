@@ -12,8 +12,8 @@
     <div class="product-info col-sm-10">
       <div class="card-body d-flex">
         <div class="left flex-grow-1">
-          <h5 class="card-title">{{ product.title }}</h5>
-          <p class="card-text">
+          <h5 class="card-title" role="button" (click)="goToDetails()">{{ product.title }}</h5>
+          <p class="card-text line-clamp-3">
             {{ product.description }}
           </p>
         </div>
