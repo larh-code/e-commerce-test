@@ -7,6 +7,7 @@ import {
 
 import { Subscription } from 'rxjs'
 
+import { faCreditCard } from '@fortawesome/free-regular-svg-icons'
 import {
   faArrowLeft,
   faCartArrowDown
@@ -25,7 +26,8 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
 
   icons = {
     back: faArrowLeft,
-    addCart: faCartArrowDown
+    addCart: faCartArrowDown,
+    creditCard: faCreditCard,
   }
   cart: ICart;
   sub$ = new Subscription();

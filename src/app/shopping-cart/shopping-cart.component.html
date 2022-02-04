@@ -27,7 +27,6 @@
               <span class="text-bolder text-center"
                 >No ha agregado productos al carrito</span
               >
-              <span class="text-bolder text-center">por favor agrege</span>
             </div>
           </ng-container>
         </div>
@@ -36,13 +35,13 @@
     <div class="card card-action">
       <div class="card-body text-end d-flex justify-content-end flex-column flex-sm-row">
         <span class="me-0 me-sm-3 mb-3 mb-sm-0"
-          ><strong>Total a pagar:</strong> $ {{ cart?.total }}</span
+          ><strong>Total a pagar:</strong> $ {{ cart?.total?.toFixed(2) }}</span
         >
         <button
           class="btn btn-sm btn-warning"
           [disabled]="!cart?.products?.length"
         >
-          Procesar pago
+          <fa-icon [icon]="icons.creditCard"></fa-icon> Procesar pago
         </button>
       </div>
     </div>
